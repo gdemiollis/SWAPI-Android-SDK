@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * People model represents an individual person or character within the Star Wars universe.
  */
 public class People implements Serializable {
-    public String name;
+    public String name = "";
 
     @SerializedName("birth_year")
     public String birthYear;

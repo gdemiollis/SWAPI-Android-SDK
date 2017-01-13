@@ -41,4 +41,11 @@ public class Vehicle implements Serializable {
 
     @SerializedName("films")
     public ArrayList<String> filmsUrls;
+
+    public boolean isEmpire() {
+        return (manufacturer.contains("Sienar")
+                || manufacturer.contains("Kuat")
+                || manufacturer.contains("Imperial")
+                || manufacturer.contains("Aratech"));
+    }
 }
