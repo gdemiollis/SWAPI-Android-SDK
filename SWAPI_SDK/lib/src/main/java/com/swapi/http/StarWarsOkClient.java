@@ -1,4 +1,4 @@
-package com.swapi.sw;
+package com.swapi.http;
 
 import android.os.Build;
 

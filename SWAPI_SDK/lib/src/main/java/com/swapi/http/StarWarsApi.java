@@ -1,36 +1,37 @@
-package com.swapi.sw;
+package com.swapi.http;
 
 import android.os.Build;
 
 import com.google.gson.Gson;
-import com.swapi.APIConstants;
 import com.swapi.BuildConfig;
+import com.swapi.models.Planet;
+import com.swapi.models.SWModelList;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by Oleur on 22/12/2014.
- * The Star Wars Api class
- */
 public class StarWarsApi {
 
     private final Retrofit retrofit;
-    private StarWars mSwApi;
-    private static StarWarsApi sInstance;
+    private final StarWarsEndPoint starWarsEndPoint;
+    private final Gson gson;
+    public static final String BASE_URL = "http://swapi.co/";
 
-    private StarWarsApi() {
+    public StarWarsApi() {
+        gson = new Gson();
         retrofit = new Retrofit.Builder()
-                .baseUrl(APIConstants.BASE_URL)
+                .baseUrl(BASE_URL)
                 .client(StarWarsOkClient.newInstance())
-                .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-        retrofit.create(StarWars.class);
+        starWarsEndPoint = retrofit.create(StarWarsEndPoint.class);
     }
 
     private static Interceptor getUserAgentHeader() {
@@ -47,15 +48,12 @@ public class StarWarsApi {
         };
     }
 
-    public static void init() {
-        sInstance = new StarWarsApi();
-    }
-
-    public static StarWars getApi() {
-        return sInstance.mSwApi;
-    }
-
-    public void setApi(StarWars starWarsApi) {
-        sInstance.mSwApi = starWarsApi;
+    public List<Planet> listPlanets() throws IOException {
+        Call<SWModelList<Planet>> call = starWarsEndPoint.getAllPlanets();
+        retrofit2.Response<SWModelList<Planet>> response = call.execute();
+        if (response.isSuccessful()) {
+            return response.body().results;
+        }
+        throw new RuntimeException("Erreur lors de la récupération dela liste des planètes");
     }
 }
