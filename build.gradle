@@ -7,15 +7,13 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.5
-
 bintray {
     user = 'gdemiollis'
     key = '4426ca8b37be6625f278189666565a9372ee4994'
     configurations = ['archives']
     pkg {
-        repo = 'ValueAnalyzer'
-        name = 'ValueAnalyzer'
+        repo = 'SWAPI'
+        name = 'SWAPI'
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/gdemiollis/SWAPI-Java-SDK.git'
         version {
