@@ -1,7 +1,6 @@
 package com.swapi.http;
 
 import com.google.gson.Gson;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.swapi.model.SWEntity;
 import com.swapi.model.SWModelList;
 import retrofit2.Call;
@@ -25,7 +24,6 @@ public class BaseApi<E extends SWEntity> {
                 .baseUrl(BASE_URL)
                 .client(StarWarsOkClient.newInstance())
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         starWarsEndPoint = retrofit.create(StarWarsEndPoint.class);
     }
