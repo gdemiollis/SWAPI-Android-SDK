@@ -3,28 +3,9 @@ plugins {
 }
 
 group 'com.github.gdemiollis'
-version '1.0-SNAPSHOT'
+version '0.5'
 
 apply plugin: 'java'
-
-sourceCompatibility = 1.5
-
-bintray {
-    user = 'gdemiollis'
-    key = '4426ca8b37be6625f278189666565a9372ee4994'
-    configurations = ['archives']
-    pkg {
-        repo = 'ValueAnalyzer'
-        name = 'ValueAnalyzer'
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/gdemiollis/SWAPI-Java-SDK.git'
-        version {
-            name = '0.1'
-            released  = new Date()
-        }
-    }
-}
-
 
 repositories {
     mavenCentral()
@@ -36,4 +17,25 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:2.1.0"
     compile "com.squareup.retrofit2:converter-gson:2.1.0"
     testCompile 'junit:junit:4.12'
+}
+
+bintray {
+    user = 'gdemiollis'
+    key = '4426ca8b37be6625f278189666565a9372ee4994'
+    configurations = ['archives']
+    pkg {
+        repo = 'SWAPI'
+        name = 'SWAPI'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/gdemiollis/SWAPI-Java-SDK.git'
+        version {
+            name = '0.5'
+            released = new Date()
+        }
+    }
+}
+
+allprojects {
+    sourceCompatibility = "1.7"
+    targetCompatibility = "1.7"
 }

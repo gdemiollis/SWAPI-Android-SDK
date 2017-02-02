@@ -1,13 +1,13 @@
 package com.swapi.http;
 
-import com.swapi.models.Film;
-import com.swapi.models.People;
-import com.swapi.models.Planet;
-import com.swapi.models.Root;
-import com.swapi.models.SWModelList;
-import com.swapi.models.Species;
-import com.swapi.models.Starship;
-import com.swapi.models.Vehicle;
+import com.swapi.model.Film;
+import com.swapi.model.People;
+import com.swapi.model.Planet;
+import com.swapi.model.Root;
+import com.swapi.model.SWModelList;
+import com.swapi.model.Species;
+import com.swapi.model.Starship;
+import com.swapi.model.Vehicle;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,4 +60,15 @@ public interface StarWarsEndPoint {
     @GET("/api/planets/{id}/")
     Call<Planet> getPlanet(@Path("id") int planetId);
 
+    @GET("/api/people/")
+    Call<SWModelList<People>> searchPeople(@Query("search") String query);
+
+    @GET("/api/planets/")
+    Call<SWModelList<Planet>> searchPlanets(@Query("search") String encodedQuery);
+
+    @GET("/api/films/")
+    Call<SWModelList<Film>> searchFilms(@Query("search") String encodedQuery);
+
+    @GET("/api/starships")
+    Call<SWModelList<Starship>> searchStarship(@Query("search") String encodedQuery);
 }

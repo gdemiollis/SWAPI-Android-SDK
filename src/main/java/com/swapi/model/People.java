@@ -1,4 +1,4 @@
-package com.swapi.models;
+package com.swapi.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by Oleur on 21/12/2014.
  * People model represents an individual person or character within the Star Wars universe.
  */
-public class People implements Serializable {
+public class People implements Serializable, SWEntity {
     public String name = "";
 
     @SerializedName("birth_year")
@@ -30,6 +30,9 @@ public class People implements Serializable {
     @SerializedName("skin_color")
     public String skinColor;
 
+    @SerializedName("eye_color")
+    public String eyeColor;
+
     public String created;
     public String edited;
     public String url;
@@ -45,4 +48,19 @@ public class People implements Serializable {
 
     @SerializedName("vehicles")
     public ArrayList<String> vehiclesUrls;
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return gender + " (" + height + " cm, " + mass + " kg), " + skinColor + ", born in " + birthYear;
+    }
+
+    @Override
+    public Category getCategory() {
+        return Category.People;
+    }
 }
