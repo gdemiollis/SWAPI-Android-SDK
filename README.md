@@ -9,3 +9,7 @@ tests can be run with
 ```sh
 $ ./gradlew clean test
 ```
+
+###TODOS
+- Make sure Retrofit, OkHttpClient and Endpoint are just created once, not for each *Api class
+- In model, remove public field and replace by getter (Easyer to Mock in test) 
