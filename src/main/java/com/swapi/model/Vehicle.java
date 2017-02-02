@@ -1,4 +1,4 @@
-package com.swapi.models;
+package com.swapi.model;
 
 import com.google.gson.annotations.SerializedName;
 

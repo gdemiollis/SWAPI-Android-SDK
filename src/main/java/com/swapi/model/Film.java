@@ -1,4 +1,4 @@
-package com.swapi.models;
+package com.swapi.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by Oleur on 21/12/2014.
  * Film model represents a Star Wars single film.
  */
-public class Film implements Serializable {
+public class Film implements Serializable, SWEntity {
     public String title;
 
     @SerializedName("episode_id")
@@ -17,6 +17,8 @@ public class Film implements Serializable {
 
     @SerializedName("opening_crawl")
     public String openingCrawl;
+
+    public String release_date;
 
     public String director;
     public String producer;
@@ -38,4 +40,19 @@ public class Film implements Serializable {
 
     @SerializedName("characters")
     public ArrayList<String> charactersUrls;
+
+    @Override
+    public String getName() {
+        return title;
+    }
+
+    @Override
+    public String getDescription() {
+        return openingCrawl;
+    }
+
+    @Override
+    public Category getCategory() {
+        return Category.Film;
+    }
 }

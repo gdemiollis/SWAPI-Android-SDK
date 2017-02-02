@@ -1,4 +1,4 @@
-package com.swapi.models;
+package com.swapi.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by Oleur on 22/12/2014.
  * Planet model represents a large mass, planet or planetoid in the Star Wars Universe, at the time of 0 ABY.
  */
-public class Planet implements Serializable {
+public class Planet implements SWEntity, Serializable {
     public String name;
     public String diameter;
     public String gravity;
@@ -34,4 +34,19 @@ public class Planet implements Serializable {
 
     @SerializedName("films")
     public ArrayList<String> filmsUrls;
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return "diameter :" + diameter + ", gravity : " + gravity + ", population : " + population + ", climate : " + climate + ", terrain : " + terrain;
+    }
+
+    @Override
+    public Category getCategory() {
+        return Category.Planet;
+    }
 }

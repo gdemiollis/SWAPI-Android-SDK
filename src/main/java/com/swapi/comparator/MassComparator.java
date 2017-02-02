@@ -1,6 +1,6 @@
 package com.swapi.comparator;
 
-import com.swapi.models.People;
+import com.swapi.model.People;
 
 import java.util.Comparator;
 

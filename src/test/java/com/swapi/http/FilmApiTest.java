@@ -1,8 +1,6 @@
 package com.swapi.http;
 
-import com.swapi.models.Film;
-import com.swapi.models.Planet;
-
+import com.swapi.model.Film;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,37 +9,18 @@ import java.util.List;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-public class StarWarsApiTest {
+public class FilmApiTest {
 
-    private StarWarsApi starWarsApi;
+    private FilmApi filmApi;
 
     @Before
     public void setUp() throws Exception {
-        starWarsApi = new StarWarsApi();
-    }
-
-    @Test
-    public void listPlanets() throws Exception {
-        List<Planet> planets = starWarsApi.listPlanets();
-        assertEquals(10, planets.size());
-        Planet planet = planets.get(0);
-        assertEquals("temperate", planet.climate);
-        assertEquals("12500", planet.diameter);
-        assertArrayEquals(new String[]{"http://swapi.co/api/people/5/", "http://swapi.co/api/people/68/", "http://swapi.co/api/people/81/"}, planet.residentsUrls.toArray(new String[0]));
-        assertArrayEquals(new String[]{"http://swapi.co/api/films/6/", "http://swapi.co/api/films/1/"}, planet.filmsUrls.toArray(new String[0]));
-        assertEquals("1 standard", planet.gravity);
-        assertEquals("Alderaan", planet.name);
-        assertEquals("2000000000", planet.population);
-        assertEquals("24", planet.rotationPeriod);
-        assertEquals("364", planet.orbitalPeriod);
-        assertEquals("40", planet.surfaceWater);
-        assertEquals("http://swapi.co/api/planets/2/", planet.url);
-        assertEquals("grasslands, mountains", planet.terrain);
+        filmApi = new FilmApi();
     }
 
     @Test
     public void listFilms() throws Exception {
-        List<Film> films = starWarsApi.listFilms();
+        List<Film> films = filmApi.listFilms();
         assertEquals(7, films.size());
         Film film = films.get(0);
         assertEquals("George Lucas", film.director);
@@ -55,5 +34,23 @@ public class StarWarsApiTest {
         assertEquals("A New Hope", film.title);
         assertEquals("http://swapi.co/api/films/1/", film.url);
         assertEquals(4, film.episodeId);
+    }
+
+    @Test
+    public void searchFilm() throws Exception {
+        List<Film> result = filmApi.searchFilms("force");
+        assertEquals(1, result.size());
+        Film film = result.get(0);
+        assertEquals("J. J. Abrams", film.director);
+        assertEquals("Kathleen Kennedy, J. J. Abrams, Bryan Burk", film.producer);
+        assertArrayEquals(new String[]{"http://swapi.co/api/people/1/","http://swapi.co/api/people/3/", "http://swapi.co/api/people/5/", "http://swapi.co/api/people/13/", "http://swapi.co/api/people/14/", "http://swapi.co/api/people/27/", "http://swapi.co/api/people/84/", "http://swapi.co/api/people/85/", "http://swapi.co/api/people/86/", "http://swapi.co/api/people/87/", "http://swapi.co/api/people/88/"}, film.charactersUrls.toArray(new String[0]));
+        assertArrayEquals(new String[]{"http://swapi.co/api/planets/61/"}, film.planetsUrls.toArray(new String[0]));
+        assertArrayEquals(new String[]{"http://swapi.co/api/species/3/", "http://swapi.co/api/species/2/", "http://swapi.co/api/species/1/"}, film.speciesUrls.toArray(new String[0]));
+        assertArrayEquals(new String[]{"http://swapi.co/api/starships/77/", "http://swapi.co/api/starships/10/"}, film.starshipsUrls.toArray(new String[0]));
+        assertArrayEquals(new String[0], film.vehiclesUrls.toArray(new String[0]));
+        assertEquals("Luke Skywalker has vanished.\r\nIn his absence, the sinister\r\nFIRST ORDER has risen from\r\nthe ashes of the Empire\r\nand will not rest until\r\nSkywalker, the last Jedi,\r\nhas been destroyed.\r\n \r\nWith the support of the\r\nREPUBLIC, General Leia Organa\r\nleads a brave RESISTANCE.\r\nShe is desperate to find her\r\nbrother Luke and gain his\r\nhelp in restoring peace and\r\njustice to the galaxy.\r\n \r\nLeia has sent her most daring\r\npilot on a secret mission\r\nto Jakku, where an old ally\r\nhas discovered a clue to\r\nLuke's whereabouts....", film.openingCrawl);
+        assertEquals("The Force Awakens", film.title);
+        assertEquals("http://swapi.co/api/films/7/", film.url);
+        assertEquals(7, film.episodeId);
     }
 }
